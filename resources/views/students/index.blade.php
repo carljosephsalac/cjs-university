@@ -3,14 +3,15 @@
 @section('content')
     <div class="flex flex-col h-screen">
         <x-navbar />
-        <main class="flex flex-col items-center justify-center flex-grow px-3 bg-gray-100 dark:bg-gray-900">
-            <div class="md:w-[1000px] w-full max-h-[600px] h-fit rounded-lg shadow-md relative flex justify-center">
+        <main
+            class="flex flex-col items-center justify-center flex-grow px-3 py-3 bg-gray-100 pt-36 sm:py-0 dark:bg-gray-900">
+            <div class="w-full md:w-[768px] max-h-[600px] h-fit rounded-lg shadow-md relative flex justify-center">
                 @session('added')
-                    <x-alert-success class="absolute -top-20">{{ $value }}</x-alert-success>
+                    <x-alert-success class="absolute sm:-top-20 -top-32">{{ $value }}</x-alert-success>
                 @endsession
 
                 @error('name')
-                    <x-alert-error class="absolute -top-20">{{ $message }}</x-alert-error>
+                    <x-alert-error class="absolute sm:-top-20 -top-32">{{ $message }}</x-alert-error>
                 @enderror
 
                 <x-button-primary class="absolute left-0 inline-flex items-center gap-1 text-xs w-fit -top-12"
@@ -37,7 +38,7 @@
 
                 <div class="flex flex-col overflow-x-auto overflow-y-auto rounded-lg shadow-md size-full">
                     <table class="text-sm text-left text-gray-500 size-full rtl:text-right dark:text-gray-400">
-                        <thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <thead class="sticky top-0 text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
                                     Student Name
@@ -64,7 +65,7 @@
                     </table>
                 </div>
             </div>
-            <div class="mt-3 md:w-[1000px] w-full">{{ $students->links() }}</div>
+            <div class="w-full mx-auto mt-3 sm:w-fit">{{ $students->links() }}</div>
         </main>
     </div>
     <x-modal header="Add a Student">
