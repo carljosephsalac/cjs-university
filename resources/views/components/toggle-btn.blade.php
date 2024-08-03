@@ -3,7 +3,7 @@
     Toggle
 </button>
 
-<script>
+<script defer>
     $('#toggle-btn').click(() => {
         $('body').toggleClass('dark');
     });

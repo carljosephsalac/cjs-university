@@ -20,7 +20,7 @@
                         <x-input type="password" name="password" id="password" placeholder="••••••••">
                             Password
                         </x-input>
-                        <x-button type="submit">Sign in</x-button>
+                        <x-button-primary class="w-full" type="submit">Sign in</x-button-primary>
                         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                             Don’t have an account yet?
                             <a href="{{ route('register') }}"

@@ -27,7 +27,7 @@
                             placeholder="Type here">
                             Confirm Password
                         </x-input>
-                        <x-button type="submit">Sign up</x-button>
+                        <x-button-primary class="w-full" type="submit">Sign up</x-button-primary>
                         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                             Already have an account yet?
                             <a href="{{ route('login') }}"
