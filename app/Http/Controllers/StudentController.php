@@ -16,7 +16,7 @@ class StudentController extends Controller
 {
     public function index()
     {
-        $students = Student::paginate(20);
+        $students = Student::orderBy('name', 'asc')->paginate(20);
         return view('students.index', compact('students'));
     }
 
@@ -24,7 +24,6 @@ class StudentController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
-            'grade' => 'numeric'
         ]);
 
         Student::create($validated);
@@ -52,18 +51,16 @@ class StudentController extends Controller
 
         } catch (Exception $e) {
             Log::error('Database error during import: ' . $e->getMessage()); // Log the error for debugging purposes
-
             return view('error-page');
-
         }
-
-
     }
 
-    public function delete(Request $request)
+    public function delete(Student $student)
     {
         // Student::truncate();
 
-        return 'deleted';
+        $student->delete();
+
+        return redirect()->back()->with('success', 'Deleted successfully.');
     }
 }

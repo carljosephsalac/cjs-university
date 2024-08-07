@@ -23,6 +23,6 @@ Route::controller(StudentController::class)->group(function() {
         Route::post('/students', 'store')->name('students.store');
         Route::get('/students/export', 'export')->name('students.export');
         Route::put('/students/import', 'import')->name('students.import');
-        Route::get('/students/delete', 'delete')->name('students.delete');
+        Route::delete('/students/{student}', 'delete')->name('students.delete');
     });
 });
