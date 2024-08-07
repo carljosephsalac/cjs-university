@@ -22,4 +22,5 @@ Route::controller(AuthController::class)->group(function() {
 Route::controller(StudentController::class)->group(function() {
     Route::get('/students', 'index')->name('students.index');
     Route::post('/students', 'store')->name('students.store');
+    Route::get('/students/export', 'export')->name('students.export');
 });
