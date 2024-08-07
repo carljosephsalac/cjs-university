@@ -40,13 +40,12 @@ class StudentsExport implements FromCollection, Responsable, WithHeadings, WithS
 
     public function collection()
     {
-        return Student::select('id', 'name', 'grade')->get();
+        return Student::select('name', 'grade')->get();
     }
 
     public function headings(): array
     {
         return [
-            'ID',
             'Name',
             'Grade',
         ];
@@ -60,12 +59,12 @@ class StudentsExport implements FromCollection, Responsable, WithHeadings, WithS
                 'font' => ['bold' => true],
             ],
 
-            // Style all data rows to center align
-            'A1:C' . $sheet->getHighestRow() => [
-                'alignment' => [
-                    'horizontal' => Alignment::HORIZONTAL_CENTER,
-                ],
-            ],
+            // // Style all data rows to center align
+            // 'A1:C' . $sheet->getHighestRow() => [
+            //     'alignment' => [
+            //         'horizontal' => Alignment::HORIZONTAL_CENTER,
+            //     ],
+            // ],
         ];
     }
 }

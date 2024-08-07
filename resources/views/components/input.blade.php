@@ -18,6 +18,6 @@
         {{ $attributes->merge(['type', 'placeholder', 'required', 'class' => 'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:text-white ' . $errorInput]) }}
         id="{{ $id }}" name="{{ $name }}" value="{{ old($name) }}">
     @error($name)
-        <p class="absolute text-xs text-red-500 -bottom-5">{{ $message }}</p>
+        <p class="absolute text-xs text-red-500 -bottom-4">{{ $message }}</p>
     @enderror
 </div>

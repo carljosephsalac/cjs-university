@@ -6,21 +6,23 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
-
-Route::get('users/export/', [UserController::class, 'export']);
 
 Route::controller(AuthController::class)->group(function() {
     Route::get('/login', 'login')->name('login');
     Route::post('/login', 'loginUser')->name('loginUser');
     Route::get('/register', 'register')->name('register');
     Route::post('/register', 'registerUser')->name('registerUser');
-    Route::post('/logout', 'logout')->name('logout');
+    Route::post('/logout', 'logout')->name('logout')->middleware('auth');
 });
 
 Route::controller(StudentController::class)->group(function() {
-    Route::get('/students', 'index')->name('students.index');
-    Route::post('/students', 'store')->name('students.store');
-    Route::get('/students/export', 'export')->name('students.export');
+    Route::middleware('auth')->group(function() {
+        Route::get('/students', 'index')->name('students.index');
+        Route::post('/students', 'store')->name('students.store');
+        Route::get('/students/export', 'export')->name('students.export');
+        Route::put('/students/import', 'import')->name('students.import');
+        Route::get('/students/delete', 'delete')->name('students.delete');
+    });
 });

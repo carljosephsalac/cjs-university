@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Exports\StudentsExport;
+use App\Imports\StudentsImport;
 use App\Jobs\ExportStudentsJob;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Database\QueryException;
 
 class StudentController extends Controller
 {
@@ -25,7 +29,7 @@ class StudentController extends Controller
 
         Student::create($validated);
 
-        return redirect()->route('students.index')->with('added', 'Added Successfully');
+        return redirect()->route('students.index')->with('success', 'Added Successfully');
     }
 
     public function export()
@@ -34,5 +38,32 @@ class StudentController extends Controller
         // return (new StudentsExport)->download('students.xlsx'); // Exportable
         // return new StudentsExport(); // Responsable
         // ExportStudentsJob::dispatch();
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'excel' => 'required|file|mimes:xlsx',
+        ]);
+
+        try {
+            Excel::import(new StudentsImport, $request->file('excel'));
+            return redirect()->back()->with('success', 'Uploaded successfully.');
+
+        } catch (Exception $e) {
+            Log::error('Database error during import: ' . $e->getMessage()); // Log the error for debugging purposes
+
+            return view('error-page');
+
+        }
+
+
+    }
+
+    public function delete(Request $request)
+    {
+        // Student::truncate();
+
+        return 'deleted';
     }
 }
