@@ -14,6 +14,7 @@
                     </h1>
                     <form class="space-y-4 md:space-y-6" action="{{ route('registerUser') }}" method="POST">
                         @csrf
+                        <x-select-input name="type" id="type" />
                         <x-input type="text" name="name" id="name" placeholder="Don Juan">
                             Name
                         </x-input>

@@ -41,13 +41,16 @@ class AuthController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
-            'email' => 'required|email',
+            'type' => 'required',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8|confirmed'
         ]);
 
         $user = User::create($validated);
 
         Auth::login($user);
+
+        $request->session()->regenerate();
 
         return redirect()->route('students.index');
     }
