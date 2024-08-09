@@ -28,12 +28,14 @@ Follow the steps below to set up the project locally:
 
    ```bash
    cp .env.example .env
+   ```
    Update the .env file with your database credentials and other necessary configurations.
+
 4. **Generate application key:**
 
    ```bash
    php artisan key:generate
-
+    
 5. **Run migrations:**
 
    ```bash
@@ -42,6 +44,7 @@ Follow the steps below to set up the project locally:
 
    ```bash
    php artisan serve
+   ```
    The application will be accessible at http://localhost:8000.
 
 ## Usage
