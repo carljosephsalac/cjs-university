@@ -1,3 +1,13 @@
+<p align="center"><img src="https://github.com/carljosephsalac/cjs-university/blob/main/public/cjs-university-ss.png" width="1000" alt="CJS University"></p>
+
+<p align="center">
+    <img src="https://img.shields.io/badge/LARAVEL-%23FF2D20?logo=laravel&logoColor=white" alt="Laravel">
+    <img src="https://img.shields.io/badge/LARAVEL%20EXCEL-%23f5a823?logo=readthedocs&logoColor=white" alt="Laravel Excel">
+    <img src="https://img.shields.io/badge/TAILWIND-%2306B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind">
+    <img src="https://img.shields.io/badge/FLOWBITE-%231a56db?logo=youtubemusic&logoColor=white" alt="Flowbite">
+    <img src="https://img.shields.io/badge/JQUERY-%230769AD?logo=jquery&logoColor=white" alt="jQuery">
+</p>
+
 # CJS University Web App
 
 A web-based application designed to manage student records, enabling users to download and upload student data seamlessly. This project is built using Laravel, Laravel Excel, Tailwind CSS, and Flowbite, and is hosted on InfinityFree
@@ -62,6 +72,7 @@ Follow the steps below to set up the project locally:
 
 ## Hosting
 - This project is hosted on InfinityFree, providing free hosting services for PHP and MySQL applications.
+- https://cjs-university.infinityfreeapp.com/
 
 ## Contributing
 1. Fork the repository.
