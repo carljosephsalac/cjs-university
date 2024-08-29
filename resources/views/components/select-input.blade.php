@@ -21,6 +21,6 @@
         <option value="student" {{ old($name) === 'student' ? 'selected' : '' }}>Student</option>
     </select>
     @error($name)
-        <p class="absolute text-xs text-red-500 -bottom-5">{{ $message }}</p>
+        <p class="absolute text-red-500 sm:text-xs sm:-bottom-5 text-[11px]">{{ $message }}</p>
     @enderror
 </div>
