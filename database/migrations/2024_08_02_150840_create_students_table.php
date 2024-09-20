@@ -14,7 +14,13 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->float('grade')->nullable();
+            $table->string('email');
+            $table->string('course');
+            $table->string('year');
+            $table->float('prelim')->nullable();
+            $table->float('midterm')->nullable();
+            $table->float('finals')->nullable();
+            $table->float('average')->nullable();
             $table->timestamps();
         });
     }

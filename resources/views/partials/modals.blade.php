@@ -1,10 +1,43 @@
-<x-modal header="Add a Student" modalId="add-modal">
+<x-modal header="Add a student record" modalId="add-modal">
     <form action="{{ route('students.store') }}" method="POST" class="flex flex-col gap-6">
         @csrf
-        <x-input type="text" name="name" id="name" placeholder="Charles James">
-            Student Name
-        </x-input>
-        <x-button-success class="w-full" type="submit">Save</x-button-success>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-7">
+            <x-input type="text" name="name" id="name" placeholder="Charles James" required>
+                Student Name
+            </x-input>
+            <x-input type="email" name="email" id="email" placeholder="charles@gmail.com" required>
+                Email
+            </x-input>
+            <x-select-input name="course" id="course" required>
+                <x-slot:label>Course</x-slot:label>
+                <option value="" {{ old('course') ? '' : 'selected' }}>Choose course</option>
+                <option value="BSIT" {{ old('course') === 'BSIT' ? 'selected' : '' }}>BSIT</option>
+                <option value="BSCS" {{ old('course') === 'BSCS' ? 'selected' : '' }}>BSCS</option>
+                <option value="BSIS" {{ old('course') === 'BSIS' ? 'selected' : '' }}>BSIS</option>
+                <option value="BSCoE" {{ old('course') === 'BSCoE' ? 'selected' : '' }}>BSCoE</option>
+            </x-select-input>
+            <x-select-input name="year" id="year" required>
+                <x-slot:label>Year</x-slot:label>
+                <option value="" {{ old('year') ? '' : 'selected' }}>Choose year</option>
+                <option value="1" {{ old('year') === '1' ? 'selected' : '' }}>1</option>
+                <option value="2" {{ old('year') === '2' ? 'selected' : '' }}>2</option>
+                <option value="3" {{ old('year') === '3' ? 'selected' : '' }}>3</option>
+                <option value="4" {{ old('year') === '4' ? 'selected' : '' }}>4</option>
+            </x-select-input>
+            <x-input type="number" name="prelim" id="prelim" placeholder="Whole number or decimal" step="0.01">
+                Prelim
+            </x-input>
+            <x-input type="number" name="midterm" id="midterm" placeholder="Whole number or decimal" step="0.01">
+                Midterm
+            </x-input>
+            <div class="sm:col-span-2">
+                <x-input type="number" name="finals" id="finals" placeholder="Whole number or decimal"
+                    step="0.01">
+                    Finals
+                </x-input>
+            </div>
+        </div>
+        <x-button-success type="submit" class="mt-3">Save</x-button-success>
     </form>
 </x-modal>
 

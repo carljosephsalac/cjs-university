@@ -1,6 +1,6 @@
 <nav class="bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700">
     <div class="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
-        <a href="/students" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <a href="{{ route('students.index') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img class="rounded-full size-8" src="{{ asset('student-management-logo.png') }}" alt="logo">
             <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
                 <h1 class="sm:hidden">SMS</h1>

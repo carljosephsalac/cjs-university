@@ -1,4 +1,4 @@
-@props(['id' => '', 'name' => ''])
+@props(['id' => '', 'name' => '', 'value' => '', 'error' => ''])
 
 @php
     if ($errors->has($name)) {
@@ -16,7 +16,7 @@
     </label>
     <input
         {{ $attributes->merge(['type', 'placeholder', 'required', 'class' => 'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:text-white ' . $errorInput]) }}
-        id="{{ $id }}" name="{{ $name }}" value="{{ old($name) }}">
+        id="{{ $id }}" name="{{ $name }}" value="{{ old($name, $value) }}">
     @error($name)
         <p class="absolute text-red-500 sm:text-xs sm:-bottom-5 text-[11px]">{{ $message }}</p>
     @enderror

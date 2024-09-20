@@ -23,6 +23,7 @@ Route::controller(StudentController::class)->group(function() {
         Route::get('/students', 'index')->name('students.index');
         Route::middleware('can:modify-students')->group(function() {
             Route::post('/students', 'store')->name('students.store');
+            Route::patch('/students/{student}', 'update')->name('students.update');
             Route::get('/students/export', 'export')->name('students.export');
             Route::put('/students/import', 'import')->name('students.import');
             Route::delete('/students/{student}', 'delete')->name('students.delete');

@@ -11,6 +11,7 @@ use App\Jobs\ExportStudentsJob;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Database\QueryException;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages;
 
 class StudentController extends Controller
 {
@@ -22,13 +23,59 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {
+        session(['store' => 'store']);
+
         $validated = $request->validate([
             'name' => 'required',
+            'email' => 'required|email',
+            'course' => 'required',
+            'year' => 'required',
+            'prelim' => 'nullable|numeric',
+            'midterm' => 'nullable|numeric',
+            'finals' => 'nullable|numeric',
         ]);
+
+        if ($request->filled(['prelim', 'midterm', 'finals'])) {
+            $validated['average'] = round(($request->prelim + $request->midterm + $request->finals) / 3, 2);
+        } else {
+            $validated['average'] = null;
+        }
 
         Student::create($validated);
 
         return redirect()->route('students.index')->with('success', 'Added Successfully');
+    }
+
+    public function update(Student $student, Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'course' => 'required',
+            'year' => 'required',
+            'prelim' => 'nullable|numeric',
+            'midterm' => 'nullable|numeric',
+            'finals' => 'nullable|numeric',
+        ]);
+
+        if ($request->filled(['prelim', 'midterm', 'finals'])) {
+            $validated['average'] = round(($request->prelim + $request->midterm + $request->finals) / 3, 2);
+        } else {
+            $validated['average'] = null;
+        }
+
+        $student->update($validated);
+
+        return redirect()->back()->with('success', 'Updated successfully.');
+    }
+
+    public function delete(Student $student)
+    {
+        // Student::truncate();
+
+        $student->delete();
+
+        return redirect()->back()->with('success', 'Deleted successfully.');
     }
 
     public function export()
@@ -53,14 +100,5 @@ class StudentController extends Controller
             Log::error('Database error during import: ' . $e->getMessage()); // Log the error for debugging purposes
             return view('error-page');
         }
-    }
-
-    public function delete(Student $student)
-    {
-        // Student::truncate();
-
-        $student->delete();
-
-        return redirect()->back()->with('success', 'Deleted successfully.');
     }
 }

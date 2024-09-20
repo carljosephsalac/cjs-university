@@ -14,7 +14,12 @@
                     </h1>
                     <form class="space-y-4 md:space-y-6" action="{{ route('registerUser') }}" method="POST">
                         @csrf
-                        <x-select-input name="type" id="type" />
+                        <x-select-input name="type" id="type">
+                            <x-slot:label>Register as</x-slot:label>
+                            <option value="" {{ old('type') ? '' : 'selected' }}>Choose a user type</option>
+                            <option value="teacher" {{ old('type') === 'teacher' ? 'selected' : '' }}>Teacher</option>
+                            <option value="student" {{ old('type') === 'student' ? 'selected' : '' }}>Student</option>
+                        </x-select-input>
                         <x-input type="text" name="name" id="name" placeholder="Don Juan">
                             Name
                         </x-input>

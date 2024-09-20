@@ -40,14 +40,22 @@ class StudentsExport implements FromCollection, Responsable, WithHeadings, WithS
 
     public function collection()
     {
-        return Student::select('name', 'grade')->orderBy('name', 'asc')->get();
+        return Student::select('name', 'email', 'course', 'year', 'prelim', 'midterm', 'finals', 'average')
+                  ->orderBy('name', 'asc')
+                  ->get();
     }
 
     public function headings(): array
     {
         return [
             'Name',
-            'Grade',
+            'Email',
+            'Course',
+            'Year',
+            'Prelim',
+            'Midterm',
+            'Finals',
+            'Average'
         ];
     }
 

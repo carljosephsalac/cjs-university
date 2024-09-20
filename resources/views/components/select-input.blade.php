@@ -12,13 +12,11 @@
 
 <div class="relative">
     <label for="{{ $id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-        Register as
+        {{ $label }}
     </label>
     <select id="{{ $id }}" name="{{ $name }}"
         {{ $attributes->merge(['class' => 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:text-white ' . $errorInput]) }}>
-        <option value="" {{ old($name) ? '' : 'selected' }}>Choose a user type</option>
-        <option value="teacher" {{ old($name) === 'teacher' ? 'selected' : '' }}>Teacher</option>
-        <option value="student" {{ old($name) === 'student' ? 'selected' : '' }}>Student</option>
+        {{ $slot }}
     </select>
     @error($name)
         <p class="absolute text-red-500 sm:text-xs sm:-bottom-5 text-[11px]">{{ $message }}</p>
