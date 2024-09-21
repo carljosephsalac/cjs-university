@@ -17,7 +17,11 @@ class StudentController extends Controller
 {
     public function index()
     {
-        $students = Student::orderBy('name', 'asc')->paginate(20);
+        $students = Student::orderByRaw("FIELD(course, 'BSIT', 'BSCS', 'BSIS', 'CompE') ASC")
+            ->orderBy('year', 'asc') // Order by year (ascending)
+            ->orderBy('last_name', 'asc') // Further order by name within each course
+            ->paginate(20);
+
         return view('students.index', compact('students'));
     }
 
@@ -26,7 +30,9 @@ class StudentController extends Controller
         session(['store' => 'store']);
 
         $validated = $request->validate([
-            'name' => 'required',
+            'last_name' => 'required',
+            'first_name' => 'required',
+            'middle_initial' => 'required',
             'email' => 'required|email',
             'course' => 'required',
             'year' => 'required',
@@ -49,7 +55,9 @@ class StudentController extends Controller
     public function update(Student $student, Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required',
+            'last_name' => 'required',
+            'first_name' => 'required',
+            'middle_initial' => 'required',
             'email' => 'required|email',
             'course' => 'required',
             'year' => 'required',

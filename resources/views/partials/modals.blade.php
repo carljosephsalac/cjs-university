@@ -2,8 +2,14 @@
     <form action="{{ route('students.store') }}" method="POST" class="flex flex-col gap-6">
         @csrf
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-7">
-            <x-input type="text" name="name" id="name" placeholder="Charles James" required>
-                Student Name
+            <x-input type="text" name="last_name" id="last_name" placeholder="Salac" required>
+                Last name
+            </x-input>
+            <x-input type="text" name="first_name" id="first_name" placeholder="Charles James" required>
+                First name
+            </x-input>
+            <x-input type="text" name="middle_initial" id="middle_initial" placeholder="T" required>
+                Middle Initial
             </x-input>
             <x-input type="email" name="email" id="email" placeholder="charles@gmail.com" required>
                 Email
@@ -14,7 +20,7 @@
                 <option value="BSIT" {{ old('course') === 'BSIT' ? 'selected' : '' }}>BSIT</option>
                 <option value="BSCS" {{ old('course') === 'BSCS' ? 'selected' : '' }}>BSCS</option>
                 <option value="BSIS" {{ old('course') === 'BSIS' ? 'selected' : '' }}>BSIS</option>
-                <option value="BSCoE" {{ old('course') === 'BSCoE' ? 'selected' : '' }}>BSCoE</option>
+                <option value="CompE" {{ old('course') === 'CompE' ? 'selected' : '' }}>CompE</option>
             </x-select-input>
             <x-select-input name="year" id="year" required>
                 <x-slot:label>Year</x-slot:label>

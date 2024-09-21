@@ -40,13 +40,13 @@
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $student->name }}
+                            {{ "$student->last_name, $student->first_name $student->middle_initial." }}
                         </th>
                         <td class="px-6 py-4">
                             {{ $student->email }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $student->course . $student->year }}
+                            {{ "$student->course $student->year" }}
                         </td>
                         <td class="px-6 py-4">
                             {{ $student->prelim }}
@@ -86,9 +86,9 @@
                         <form action="{{ route('students.delete', $student) }}" method="POST" class="flex gap-6">
                             @csrf
                             @method('delete')
-                            <div class="flex gap-10">
-                                <x-button-error class="w-1/2" type="submit">Yes</x-button-error>
-                                <x-button-primary class="w-1/2" type="button"
+                            <div class="flex gap-10 justify-center">
+                                <x-button-error class="w-full max-w-40" type="submit">Yes</x-button-error>
+                                <x-button-primary class="w-full max-w-40" type="button"
                                     data-modal-hide="delete-{{ $student->id }}">
                                     No
                                 </x-button-primary>
@@ -103,9 +103,17 @@
                             @csrf
                             @method('PATCH')
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-7">
-                                <x-input type="text" name="name" id="name" placeholder="Charles James"
-                                    required value="{{ $student->name }}">
-                                    Student Name
+                                <x-input type="text" name="last_name" id="last_name" placeholder="Salac" required
+                                    value="{{ $student->last_name }}">
+                                    Last name
+                                </x-input>
+                                <x-input type="text" name="first_name" id="first_name" placeholder="Charles James"
+                                    required value="{{ $student->first_name }}">
+                                    First name
+                                </x-input>
+                                <x-input type="text" name="middle_initial" id="middle_initial" placeholder="T"
+                                    required value="{{ $student->middle_initial }}">
+                                    Middle Initial
                                 </x-input>
                                 <x-input type="email" name="email" id="email" placeholder="charles@gmail.com"
                                     required value="{{ $student->email }}">
@@ -126,9 +134,9 @@
                                         {{ old('course', $student->course) === 'BSIS' ? 'selected' : '' }}>
                                         BSIS
                                     </option>
-                                    <option value="BSCoE"
-                                        {{ old('course', $student->course) === 'BSCoE' ? 'selected' : '' }}>
-                                        BSCoE
+                                    <option value="CompE"
+                                        {{ old('course', $student->course) === 'CompE' ? 'selected' : '' }}>
+                                        CompE
                                     </option>
                                 </x-select-input>
                                 <x-select-input name="year" id="year" required>
@@ -163,7 +171,7 @@
                                     </x-input>
                                 </div>
                                 <x-button-success type="submit"
-                                    class=" mx-auto sm:col-span-2">Update</x-button-success>
+                                    class="mx-auto sm:col-span-2">Update</x-button-success>
                             </div>
 
                         </form>
