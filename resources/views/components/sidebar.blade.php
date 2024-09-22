@@ -17,8 +17,9 @@
         <ul class="space-y-2 font-medium">
             <li>
                 <a href="{{ route('students.index') }}"
-                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group
+                    {{ request()->routeIs('students.index') ? 'bg-gray-100 dark:bg-gray-700' : '' }}">
+                    <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white {{ request()->routeIs('students.index') ? 'text-gray-900 dark:text-white' : '' }}"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd"
@@ -30,213 +31,98 @@
             </li>
 
             <li>
-                <button type="button"
-                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                    aria-controls="bsit" data-collapse-toggle="bsit">
-                    <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        fill="currentColor" viewBox="0 0 24 24">
-                        <path fill-rule="evenodd"
-                            d="M5 3a2 2 0 0 0-2 2v5h18V5a2 2 0 0 0-2-2H5ZM3 14v-2h18v2a2 2 0 0 1-2 2h-6v3h2a1 1 0 1 1 0 2H9a1 1 0 1 1 0-2h2v-3H5a2 2 0 0 1-2-2Z"
-                            clip-rule="evenodd" />
-                    </svg>
-                    <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">BSIT</span>
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m1 1 4 4 4-4" />
-                    </svg>
-                </button>
-                <ul id="bsit" class="hidden py-2 space-y-2">
-                    <li>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            BSIT (All)
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            BSIT 1
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            BSIT 2
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            BSIT 3
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            BSIT 4
-                        </a>
-                    </li>
+                <x-sidebar-dropdown-item toggle="bsit" label="BSIT">
+                    <x-icon-bsit />
+                </x-sidebar-dropdown-item>
+                <ul id="bsit"
+                    class="py-2 space-y-2 {{ request()->is(['BSIT/all', 'BSIT/1', 'BSIT/2', 'BSIT/3', 'BSIT/4']) ? '' : 'hidden' }}">
+                    <x-sidebar-item course="BSIT" year="all">
+                        BSIT (All)
+                    </x-sidebar-item>
+                    <x-sidebar-item course="BSIT" year="1">
+                        BSIT 1
+                    </x-sidebar-item>
+                    <x-sidebar-item course="BSIT" year="2">
+                        BSIT 2
+                    </x-sidebar-item>
+                    <x-sidebar-item course="BSIT" year="3">
+                        BSIT 3
+                    </x-sidebar-item>
+                    <x-sidebar-item course="BSIT" year="4">
+                        BSIT 4
+                    </x-sidebar-item>
                 </ul>
             </li>
 
             <li>
-                <button type="button"
-                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                    aria-controls="bscs" data-collapse-toggle="bscs">
-                    <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m8 8-4 4 4 4m8 0 4-4-4-4m-2-3-4 14" />
-                    </svg>
-
-                    <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">BSCS</span>
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m1 1 4 4 4-4" />
-                    </svg>
-                </button>
-                <ul id="bscs" class="hidden py-2 space-y-2">
-                    <li>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            BSCS (All)
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            BSCS 1
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            BSCS 2
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            BSCS 3
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            BSCS 4
-                        </a>
-                    </li>
+                <x-sidebar-dropdown-item toggle="bscs" label="BSCS">
+                    <x-icon-bscs />
+                </x-sidebar-dropdown-item>
+                <ul id="bscs"
+                    class="py-2 space-y-2 {{ request()->is(['BSCS/all', 'BSCS/1', 'BSCS/2', 'BSCS/3', 'BSCS/4']) ? '' : 'hidden' }}">
+                    <x-sidebar-item course="BSCS" year="all">
+                        BSCS (All)
+                    </x-sidebar-item>
+                    <x-sidebar-item course="BSCS" year="1">
+                        BSCS 1
+                    </x-sidebar-item>
+                    <x-sidebar-item course="BSCS" year="2">
+                        BSCS 2
+                    </x-sidebar-item>
+                    <x-sidebar-item course="BSCS" year="3">
+                        BSCS 3
+                    </x-sidebar-item>
+                    <x-sidebar-item course="BSCS" year="4">
+                        BSCS 4
+                    </x-sidebar-item>
                 </ul>
             </li>
 
             <li>
-                <button type="button"
-                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                    aria-controls="bsis" data-collapse-toggle="bsis">
-                    <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 4.5V19a1 1 0 0 0 1 1h15M7 14l4-4 4 4 5-5m0 0h-3.207M20 9v3.207" />
-                    </svg>
-                    <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">BSIS</span>
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m1 1 4 4 4-4" />
-                    </svg>
-                </button>
-                <ul id="bsis" class="hidden py-2 space-y-2">
-                    <li>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            BSIS (All)
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            BSIS 1
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            BSIS 2
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            BSIS 3
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            BSIS 4
-                        </a>
-                    </li>
+                <x-sidebar-dropdown-item toggle="bsis" label="BSIS">
+                    <x-icon-bsis />
+                </x-sidebar-dropdown-item>
+                <ul id="bsis"
+                    class="py-2 space-y-2 {{ request()->is(['BSIS/all', 'BSIS/1', 'BSIS/2', 'BSIS/3', 'BSIS/4']) ? '' : 'hidden' }}">
+                    <x-sidebar-item course="BSIS" year="all">
+                        BSIS (All)
+                    </x-sidebar-item>
+                    <x-sidebar-item course="BSIS" year="1">
+                        BSIS 1
+                    </x-sidebar-item>
+                    <x-sidebar-item course="BSIS" year="2">
+                        BSIS 2
+                    </x-sidebar-item>
+                    <x-sidebar-item course="BSIS" year="3">
+                        BSIS 3
+                    </x-sidebar-item>
+                    <x-sidebar-item course="BSIS" year="4">
+                        BSIS 4
+                    </x-sidebar-item>
                 </ul>
             </li>
 
             <li>
-                <button type="button"
-                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                    aria-controls="compe" data-collapse-toggle="compe">
-                    <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        fill="currentColor" viewBox="0 0 24 24">
-                        <path fill-rule="evenodd"
-                            d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"
-                            clip-rule="evenodd" />
-                        <path fill-rule="evenodd"
-                            d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.35 0 .687.06 1 .17V5a2 2 0 0 0-2-2H5Zm4 10H3v2a2 2 0 0 0 2 2h4v-4Z"
-                            clip-rule="evenodd" />
-                    </svg>
-
-                    <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">CompE</span>
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m1 1 4 4 4-4" />
-                    </svg>
-                </button>
-                <ul id="compe" class="hidden py-2 space-y-2">
-                    <li>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            CompE (All)
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            CompE 1
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            CompE 2
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            CompE 3
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            CompE 4
-                        </a>
-                    </li>
+                <x-sidebar-dropdown-item toggle="compe" label="CompE">
+                    <x-icon-compe />
+                </x-sidebar-dropdown-item>
+                <ul id="compe"
+                    class="py-2 space-y-2 {{ request()->is(['CompE/all', 'CompE/1', 'CompE/2', 'CompE/3', 'CompE/4']) ? '' : 'hidden' }}">
+                    <x-sidebar-item course="CompE" year="all">
+                        CompE (All)
+                    </x-sidebar-item>
+                    <x-sidebar-item course="CompE" year="1">
+                        CompE 1
+                    </x-sidebar-item>
+                    <x-sidebar-item course="CompE" year="2">
+                        CompE 2
+                    </x-sidebar-item>
+                    <x-sidebar-item course="CompE" year="3">
+                        CompE 3
+                    </x-sidebar-item>
+                    <x-sidebar-item course="CompE" year="4">
+                        CompE 4
+                    </x-sidebar-item>
                 </ul>
             </li>
         </ul>

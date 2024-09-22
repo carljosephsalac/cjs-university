@@ -28,5 +28,6 @@ Route::controller(StudentController::class)->group(function() {
             Route::put('/students/import', 'import')->name('students.import');
             Route::delete('/students/{student}', 'delete')->name('students.delete');
         });
+        Route::get('/{course}/{year}', 'getStudents')->name('getStudents');
     });
 });

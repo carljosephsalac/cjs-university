@@ -173,7 +173,6 @@
                                 <x-button-success type="submit"
                                     class="mx-auto sm:col-span-2">Update</x-button-success>
                             </div>
-
                         </form>
                     </x-modal>
                 @endforeach

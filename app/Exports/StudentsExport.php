@@ -40,15 +40,39 @@ class StudentsExport implements FromCollection, Responsable, WithHeadings, WithS
 
     public function collection()
     {
-        return Student::select('name', 'email', 'course', 'year', 'prelim', 'midterm', 'finals', 'average')
-                  ->orderBy('name', 'asc')
-                  ->get();
+        $course = session('course');
+        $year = session('year');
+
+         $query = Student::select(
+            'last_name',
+            'first_name',
+            'middle_initial',
+            'email',
+            'course',
+            'year',
+            'prelim',
+            'midterm',
+            'finals',
+            'average'
+            );
+
+
+        if ($course === 'all' && $year === 'all') {
+            $query->orderByRaw("FIELD(course, 'BSIT', 'BSCS', 'BSIS', 'CompE') ASC");
+        } elseif ($course !== 'all') {
+            $query->where('course', $course);
+            $year === 'all' ? '' : $query->where('year', $year);
+        }
+
+        return $query->orderBy('year', 'asc')->orderBy('last_name', 'asc')->get();
     }
 
     public function headings(): array
     {
         return [
-            'Name',
+            'Last Name',
+            'First Name',
+            'Middle Initial',
             'Email',
             'Course',
             'Year',

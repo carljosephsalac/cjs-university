@@ -18,7 +18,9 @@
 </div>
 
 <script defer>
-    $('#x-btn').click(() => {
-        $('#alert').remove();
+    $(document).ready(function() {
+        $('#x-btn').click(() => {
+            $('#alert').remove();
+        });
     });
 </script>

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('last_name')->after('id');
             $table->string('first_name')->after('last_name');
             $table->string('middle_initial')->after('first_name');
+            $table->string('email')->unique()->change();
         });
     }
 
@@ -29,6 +30,8 @@ return new class extends Migration
             $table->dropColumn('last_name');
             $table->dropColumn('first_name');
             $table->dropColumn('middle_initial');
+            $table->string('email')->dropUnique()->change();
+            // $table->dropUnique('students_email_unique');
         });
     }
 };

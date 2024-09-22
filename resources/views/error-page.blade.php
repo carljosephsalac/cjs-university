@@ -12,14 +12,12 @@
                 </p>
                 <p class="mb-4 font-light text-gray-500 sm:text-lg dark:text-gray-400">
                     There was an error importing the students. <br>
-                    Don't modify the format of the donwloaded excel. <br>
-                    Only add data to the name and grade column. <br>
-                    The grade column must be in number format.
+                    Please ensure the Excel file format is correct and has not been modified. <br>
                 </p>
-                <a href="{{ route('students.index') }}"
+                <button type="button" onclick="window.history.back();"
                     class="inline-flex text-white bg-primary-600 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900 my-4">
-                    Back to Homepage
-                </a>
+                    Back to Previous Page
+                </button>
             </div>
         </div>
     </section>

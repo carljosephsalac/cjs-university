@@ -6,7 +6,6 @@
             Add Student
         </x-button-primary>
 
-
         <div class="absolute right-0 flex gap-3 -top-12">
             <form action="{{ route('students.export') }}" method="get">
                 <x-button-success class="inline-flex items-center gap-1 text-xs w-fit" type="submit">

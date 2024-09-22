@@ -17,6 +17,8 @@ class StudentController extends Controller
 {
     public function index()
     {
+        session(['course' => 'all', 'year' => 'all']);
+
         $students = Student::orderByRaw("FIELD(course, 'BSIT', 'BSCS', 'BSIS', 'CompE') ASC")
             ->orderBy('year', 'asc') // Order by year (ascending)
             ->orderBy('last_name', 'asc') // Further order by name within each course
@@ -33,7 +35,7 @@ class StudentController extends Controller
             'last_name' => 'required',
             'first_name' => 'required',
             'middle_initial' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:students,email',
             'course' => 'required',
             'year' => 'required',
             'prelim' => 'nullable|numeric',
@@ -49,7 +51,7 @@ class StudentController extends Controller
 
         Student::create($validated);
 
-        return redirect()->route('students.index')->with('success', 'Added Successfully');
+        return back()->with('success', 'Added Successfully');
     }
 
     public function update(Student $student, Request $request)
@@ -58,7 +60,7 @@ class StudentController extends Controller
             'last_name' => 'required',
             'first_name' => 'required',
             'middle_initial' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:students,email,' . $student->id,
             'course' => 'required',
             'year' => 'required',
             'prelim' => 'nullable|numeric',
@@ -74,7 +76,7 @@ class StudentController extends Controller
 
         $student->update($validated);
 
-        return redirect()->back()->with('success', 'Updated successfully.');
+        return back()->with('success', 'Updated successfully.');
     }
 
     public function delete(Student $student)
@@ -105,8 +107,29 @@ class StudentController extends Controller
             return redirect()->back()->with('success', 'Uploaded successfully.');
 
         } catch (Exception $e) {
-            Log::error('Database error during import: ' . $e->getMessage()); // Log the error for debugging purposes
+            // Log the error for debugging purposes
+            Log::error('Database error during import: ' . $e->getMessage());
             return view('error-page');
         }
+    }
+
+    public function getStudents($course, $year)
+    {
+        session(['course' => $course, 'year' => $year]);
+
+        if($year === 'all') {
+            $students = Student::where('course', $course)
+                ->orderBy('year', 'asc')
+                ->orderBy('last_name', 'asc')
+                ->paginate(20);
+        } else {
+            $students = Student::where('course', $course)
+                ->where('year', $year)
+                ->orderBy('year', 'asc')
+                ->orderBy('last_name', 'asc')
+                ->paginate(20);
+        }
+
+        return view('students.index', compact('students'));
     }
 }
