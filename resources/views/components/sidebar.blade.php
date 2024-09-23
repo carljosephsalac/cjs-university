@@ -35,7 +35,7 @@
                     <x-icon-bsit />
                 </x-sidebar-dropdown-item>
                 <ul id="bsit"
-                    class="py-2 space-y-2 {{ request()->is(['BSIT/all', 'BSIT/1', 'BSIT/2', 'BSIT/3', 'BSIT/4']) ? '' : 'hidden' }}">
+                    class="py-2 space-y-2 {{ request()->is(['students/BSIT/all', 'students/BSIT/1', 'students/BSIT/2', 'students/BSIT/3', 'students/BSIT/4']) ? '' : 'hidden' }}">
                     <x-sidebar-item course="BSIT" year="all">
                         BSIT (All)
                     </x-sidebar-item>

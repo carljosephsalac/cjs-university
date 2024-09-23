@@ -9,9 +9,14 @@
             class="flex flex-col items-center justify-center flex-grow px-3 py-3 bg-gray-100 pt-36 sm:py-0 dark:bg-gray-900">
             <div class="w-full  lg:max-w-screen-2xl max-h-[600px] h-fit rounded-lg shadow-md relative flex justify-center">
 
+                @cannot('modify-students')
+                    <div class="absolute left-0 -top-12">
+                        <x-search-input />
+                    </div>
+                @endcannot
+
                 @can('modify-students')
                     @include('partials.alerts')
-
                     @include('partials.buttons')
                 @endcan
 

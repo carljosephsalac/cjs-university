@@ -15,7 +15,6 @@ class StudentsImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        // dd($row);
         // Initialize the 'average' field as null
         $average = null;
 

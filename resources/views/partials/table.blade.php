@@ -5,9 +5,11 @@
                 <th scope="col" class="px-6 py-3">
                     Student Name
                 </th>
-                <th scope="col" class="px-6 py-3">
-                    Email
-                </th>
+                @can('modify-students')
+                    <th scope="col" class="px-6 py-3">
+                        Email
+                    </th>
+                @endcan
                 <th scope="col" class="px-6 py-3">
                     Course & Year
                 </th>
@@ -42,9 +44,11 @@
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ "$student->last_name, $student->first_name $student->middle_initial." }}
                         </th>
-                        <td class="px-6 py-4">
-                            {{ $student->email }}
-                        </td>
+                        @can('modify-students')
+                            <td class="px-6 py-4">
+                                {{ $student->email }}
+                            </td>
+                        @endcan
                         <td class="px-6 py-4">
                             {{ "$student->course $student->year" }}
                         </td>
@@ -177,21 +181,13 @@
                     </x-modal>
                 @endforeach
             @else
-                {{-- if no students yet --}}
+                {{-- if no students found --}}
                 <tr
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row" class="px-6 py-8 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th colspan="{{ auth()->user()->can('modify-students') ? '9' : '6' }}" scope="row"
+                        class="px-6 py-4 font-medium text-lg text-center text-gray-900 whitespace-nowrap dark:text-white">
+                        No Records Found.
                     </th>
-                    <td class="px-6 py-8"></td>
-                    <td class="px-6 py-8"></td>
-                    <td class="px-6 py-8"></td>
-                    <td class="px-6 py-8"></td>
-                    <td class="px-6 py-8"></td>
-                    <td class="px-6 py-8"></td>
-                    @can('modify-students')
-                        <td class="px-6 py-8"></td>
-                        <td class="px-6 py-8"></td>
-                    @endcan
                 </tr>
             @endif
         </tbody>

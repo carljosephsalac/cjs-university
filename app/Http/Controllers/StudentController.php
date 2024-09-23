@@ -10,27 +10,29 @@ use App\Imports\StudentsImport;
 use App\Jobs\ExportStudentsJob;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Database\QueryException;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class StudentController extends Controller
 {
-    public function index()
+    public function index() : View
     {
+        // remove the student name in search input
+        session()->forget('student_name');
+
         session(['course' => 'all', 'year' => 'all']);
 
         $students = Student::orderByRaw("FIELD(course, 'BSIT', 'BSCS', 'BSIS', 'CompE') ASC")
-            ->orderBy('year', 'asc') // Order by year (ascending)
-            ->orderBy('last_name', 'asc') // Further order by name within each course
+            ->orderBy('year', 'asc')
+            ->orderBy('last_name', 'asc')
             ->paginate(20);
 
         return view('students.index', compact('students'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request) : RedirectResponse
     {
-        session(['store' => 'store']);
-
         $validated = $request->validate([
             'last_name' => 'required',
             'first_name' => 'required',
@@ -54,7 +56,7 @@ class StudentController extends Controller
         return back()->with('success', 'Added Successfully');
     }
 
-    public function update(Student $student, Request $request)
+    public function update(Student $student, Request $request) : RedirectResponse
     {
         $validated = $request->validate([
             'last_name' => 'required',
@@ -79,7 +81,7 @@ class StudentController extends Controller
         return back()->with('success', 'Updated successfully.');
     }
 
-    public function delete(Student $student)
+    public function delete(Student $student) : RedirectResponse
     {
         // Student::truncate();
 
@@ -88,7 +90,7 @@ class StudentController extends Controller
         return redirect()->back()->with('success', 'Deleted successfully.');
     }
 
-    public function export()
+    public function export() : BinaryFileResponse
     {
         return Excel::download(new StudentsExport, 'students.xlsx');
         // return (new StudentsExport)->download('students.xlsx'); // Exportable
@@ -96,7 +98,7 @@ class StudentController extends Controller
         // ExportStudentsJob::dispatch();
     }
 
-    public function import(Request $request)
+    public function import(Request $request) : RedirectResponse|View
     {
         $request->validate([
             'excel' => 'required|file|mimes:xlsx',
@@ -113,22 +115,42 @@ class StudentController extends Controller
         }
     }
 
-    public function getStudents($course, $year)
+    public function get(string $course, string $year) : View
     {
+        // remove the student name in search input
+        session()->forget('student_name');
+
         session(['course' => $course, 'year' => $year]);
 
-        if($year === 'all') {
-            $students = Student::where('course', $course)
+        $query = Student::where('course', $course)
                 ->orderBy('year', 'asc')
-                ->orderBy('last_name', 'asc')
-                ->paginate(20);
-        } else {
-            $students = Student::where('course', $course)
-                ->where('year', $year)
-                ->orderBy('year', 'asc')
-                ->orderBy('last_name', 'asc')
-                ->paginate(20);
-        }
+                ->orderBy('last_name', 'asc');
+
+        if ($year !== 'all') $students = $query->where('year', $year);
+
+        $students = $query->paginate(20);
+
+        return view('students.index', compact('students'));
+    }
+
+    public function search(Request $request) : View
+    {
+        $validated = $request->validate(['student_name' => 'required']);
+
+        // store student_name in session to persist in search input
+        session(['student_name' => $validated['student_name']]);
+
+        $studentName = session('student_name');
+
+        $students = Student::where('last_name', 'LIKE', "%$studentName%" )
+            ->orWhere('first_name', 'LIKE', "%$studentName%")
+            ->orderByRaw("FIELD(course, 'BSIT', 'BSCS', 'BSIS', 'CompE') ASC")
+            ->orderBy('year', 'asc')
+            ->orderBy('last_name', 'asc')
+            ->paginate(20);
+
+        // Append the search parameter to the pagination links
+        $students->appends(['student_name' => $studentName]);
 
         return view('students.index', compact('students'));
     }
