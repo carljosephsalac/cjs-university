@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/carljosephsalac/cjs-university/blob/main/public/cjs-university-ss.png" width="1000" alt="CJS University"></p>
+<p align="center"><img src="https://github.com/carljosephsalac/grade-management-system/blob/main/public/grade-management-system-ss.png" width="1000" alt="CJS University"></p>
 
 <p align="center">
     <img src="https://img.shields.io/badge/LARAVEL-%23FF2D20?logo=laravel&logoColor=white" alt="Laravel">
