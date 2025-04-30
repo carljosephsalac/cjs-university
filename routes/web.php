@@ -12,7 +12,7 @@ Route::get('/', function () {
 
 Route::controller(AuthController::class)->group(function() {
     Route::get('/login', 'login')->name('login');
-    Route::post('/login', 'loginUser')->name('loginUser');
+    Route::post('/login', 'loginUser')->name('loginUser')->middleware('throttle:3,1');
     Route::get('/register', 'register')->name('register');
     Route::post('/register', 'registerUser')->name('registerUser');
     Route::post('/logout', 'logout')->name('logout')->middleware('auth');
