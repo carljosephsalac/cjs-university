@@ -40,6 +40,7 @@ class StudentsExport implements FromCollection, Responsable, WithHeadings, WithS
 
     public function collection()
     {
+        // get the chosen course and year stored in session
         $course = session('course');
         $year = session('year');
 
@@ -56,12 +57,12 @@ class StudentsExport implements FromCollection, Responsable, WithHeadings, WithS
             'average'
             );
 
-
+        // dynamic query base on the chosen course and year
         if ($course === 'all' && $year === 'all') {
             $query->orderByRaw("FIELD(course, 'BSIT', 'BSCS', 'BSIS', 'CompE') ASC");
         } elseif ($course !== 'all') {
             $query->where('course', $course);
-            $year === 'all' ? '' : $query->where('year', $year);
+            if ($year !== 'all') $query->where('year', $year);
         }
 
         return $query->orderBy('year', 'asc')->orderBy('last_name', 'asc')->get();

@@ -45,8 +45,9 @@ class StudentController extends Controller
             'finals' => 'nullable|numeric',
         ]);
 
+        // calculate the average if the student already hava grades in prelim, midterm and finals
         if ($request->filled(['prelim', 'midterm', 'finals'])) {
-            $validated['average'] = round(($request->prelim + $request->midterm + $request->finals) / 3, 2);
+            $validated['average'] = round(($validated['prelim'] + $validated['midterm'] + $validated['finals']) / 3, 2);
         } else {
             $validated['average'] = null;
         }
@@ -71,7 +72,7 @@ class StudentController extends Controller
         ]);
 
         if ($request->filled(['prelim', 'midterm', 'finals'])) {
-            $validated['average'] = round(($request->prelim + $request->midterm + $request->finals) / 3, 2);
+            $validated['average'] = round(($validated['prelim'] + $validated['midterm'] + $validated['finals']) / 3, 2);
         } else {
             $validated['average'] = null;
         }
@@ -83,8 +84,6 @@ class StudentController extends Controller
 
     public function delete(Student $student) : RedirectResponse
     {
-        // Student::truncate();
-
         $student->delete();
 
         return redirect()->back()->with('success', 'Deleted successfully.');
@@ -93,6 +92,7 @@ class StudentController extends Controller
     public function export() : BinaryFileResponse
     {
         return Excel::download(new StudentsExport, 'students.xlsx');
+
         // return (new StudentsExport)->download('students.xlsx'); // Exportable
         // return new StudentsExport(); // Responsable
         // ExportStudentsJob::dispatch();
